@@ -27,7 +27,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' =>'required',
+             'email' =>'required|email|unique:customer',
+              'phone' =>'required|numeric',
+               'address' =>'required',
+                'total' =>'required|numeric',
+        ]);
+        $customer = new Customer();
+        $customer->name=$request->name;
+        $customer->email=$request->email;
+        $customer->phone=$request->phone;
+        $customer->address=$request->address;
+        $customer->total=$request->total;
+        $customer->save();
+        return new CustomerResource($customer);
     }
 
     /**
