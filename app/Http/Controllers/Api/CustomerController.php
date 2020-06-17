@@ -93,4 +93,10 @@ class CustomerController extends Controller
         $customer->delete();
          return new CustomerResource($customer);
     }
+
+    //search option
+
+    public function search($field, $query){
+        return new CustomerCollection(Customer::where($field,'LIKE',"%query%")->latest()->paginate(10));
+    }
 }
